@@ -1,0 +1,10 @@
+﻿@model int
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> _signInManager
+@inject UserManager<IdentityUser> _userManager
+
+@if (_signInManager.IsSignedIn(User) && await _userManager.IsInRoleAsync(_userManager.GetUserAsync(User).Result, "admin"))
+{
+    <a asp-controller="Book" asp-action="DeleteBook" asp-route-id="@Model" class="btn btn-sm btn-outline-danger">Delete</a>
+}
